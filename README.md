@@ -5,8 +5,6 @@
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code Coverage](https://img.shields.io/codecov/c/github/APorkolab/SprintSolve)](https://codecov.io/gh/APorkolab/SprintSolve)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=APorkolab_SprintSolve&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=APorkolab_SprintSolve)
 
 > **A professional, TypeScript-based educational trivia game that combines modern development practices with engaging gameplay mechanics.**
 
