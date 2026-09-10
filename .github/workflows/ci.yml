@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '24'
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['18', '20', '22']
+        node-version: ['22', '24']
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -81,7 +81,7 @@ jobs:
         run: npm run test -- --coverage
 
       - name: Upload coverage reports
-        if: matrix.node-version == '20'
+        if: matrix.node-version == '24'
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -90,7 +90,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload coverage reports as artifact (fallback)
-        if: matrix.node-version == '20' && always()
+        if: matrix.node-version == '24' && always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-reports
@@ -99,7 +99,7 @@ jobs:
 
       # SonarCloud Scan disabled - requires SONAR_TOKEN configuration
       # - name: SonarCloud Scan
-      #   if: matrix.node-version == '20'
+      #   if: matrix.node-version == '24'
       #   uses: SonarSource/sonarcloud-github-action@master
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
