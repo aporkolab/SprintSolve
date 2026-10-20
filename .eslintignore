@@ -1,0 +1,3 @@
+
+# Vendored dependency has its own security regression tests.
+vendor/

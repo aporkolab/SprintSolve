@@ -384,8 +384,9 @@ export class SpatialAudioManager {
 
   private async initializeAudioContext(): Promise<void> {
     try {
-      this.audioContext = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
+      this.audioContext = new (
+        window.AudioContext || (window as any).webkitAudioContext
+      )();
       this.gainNode = this.audioContext.createGain();
       this.compressor = this.audioContext.createDynamicsCompressor();
 

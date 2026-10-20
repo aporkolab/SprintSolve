@@ -9,11 +9,7 @@ import { analyticsService } from '../services/analyticsService';
 
 export interface LanguageSelectorConfig {
   position?:
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right'
-    | 'center';
+    'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
   showFlags?: boolean;
   showNames?: boolean;
   compact?: boolean;

@@ -98,19 +98,10 @@ export interface DisplayMessage {
 }
 
 export type GameState =
-  | 'menu'
-  | 'categorySelect'
-  | 'playing'
-  | 'paused'
-  | 'gameOver';
+  'menu' | 'categorySelect' | 'playing' | 'paused' | 'gameOver';
 
 export type CollisionResult =
-  | 'correct'
-  | 'incorrect'
-  | 'wall'
-  | 'ceiling'
-  | 'floor'
-  | null;
+  'correct' | 'incorrect' | 'wall' | 'ceiling' | 'floor' | null;
 
 export interface GameConfig {
   readonly initialGameSpeed: number;
