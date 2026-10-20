@@ -68,7 +68,7 @@ export class AudioManagerImpl implements AudioManager {
     try {
       // Set global Howler settings
       Howler.volume(this.masterVolume);
-      (Howler as any).html5PoolSize(10);
+      Howler.html5PoolSize = 10;
 
       // Preload essential sounds
       await this.preloadEssentialSounds();

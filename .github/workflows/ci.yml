@@ -46,7 +46,6 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
-        continue-on-error: true
 
       - name: Run Prettier check
         run: npm run format:check
