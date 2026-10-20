@@ -164,7 +164,7 @@ jobs:
         run: npm run preview &
         
       - name: Wait for server
-        run: npx wait-on http://127.0.0.1:4173/SprintSolve/
+        run: npx wait-on --timeout 60000 http://127.0.0.1:4173/SprintSolve/
 
       - name: Run Lighthouse
         run: npm run lighthouse
