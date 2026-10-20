@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('SprintSolve Game', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the game
-    await page.goto('/');
+    await page.goto('./');
     
     // Wait for the game to load
     await page.waitForSelector('canvas#gameCanvas');

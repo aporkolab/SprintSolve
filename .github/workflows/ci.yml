@@ -131,7 +131,6 @@ jobs:
 
       - name: Run E2E tests
         run: npm run test:e2e
-        continue-on-error: true
 
       - name: Upload E2E test results
         uses: actions/upload-artifact@v4
@@ -165,22 +164,17 @@ jobs:
         run: npm run preview &
         
       - name: Wait for server
-        run: npx wait-on http://localhost:4173
+        run: npx wait-on http://127.0.0.1:4173/SprintSolve/
 
-      - name: Run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.12.x
-          lhci autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-        continue-on-error: true
+      - name: Run Lighthouse
+        run: npm run lighthouse
 
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: lighthouse-reports
-          path: .lighthouseci/
+          path: lighthouse-report.json
           retention-days: 30
 
   # Build and Bundle Analysis
