@@ -1,3 +1,6 @@
+import backgroundUrl from '../background.png';
+import characterUrl from '../character.gif';
+import obstacleUrl from '../obstacle.png';
 import type { GameAssets } from '@/types';
 
 /**
@@ -22,9 +25,9 @@ function loadImage(src: string): Promise<HTMLImageElement> {
  * Asset paths configuration
  */
 const ASSET_PATHS = {
-  background: './background.png',
-  character: './character.gif',
-  obstacle: './obstacle.png',
+  background: backgroundUrl,
+  character: characterUrl,
+  obstacle: obstacleUrl,
 } as const;
 
 /**

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host 127.0.0.1 --strictPort",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
@@ -19,8 +19,10 @@
     "type-check": "tsc --noEmit",
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "analyze": "echo 'Bundle analysis would run: npx vite-bundle-analyzer dist' && ls -la dist/assets/",
-    "lighthouse": "lighthouse http://localhost:4173 --output html --output-path ./lighthouse-report.html"
+    "analyze": "size-limit",
+    "lighthouse": "lighthouse http://127.0.0.1:4173/SprintSolve/ --output=json --output-path=./lighthouse-report.json --chrome-flags=\"--headless --no-sandbox --disable-dev-shm-usage\"",
+    "test:dependency-guards": "node --test vendor/braces/test.cjs",
+    "size": "size-limit"
   },
   "repository": {
     "type": "git",
@@ -56,6 +58,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
+    "@size-limit/file": "^8.2.6",
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/canvas-confetti": "^1.6.4",
     "@types/howler": "^2.2.11",
     "@types/lodash-es": "^4.17.12",
@@ -66,6 +70,7 @@
     "@vitest/coverage-v8": "^5.0.0",
     "@vitest/ui": "^5.0.0",
     "autoprefixer": "^10.4.16",
+    "braces": "file:vendor/braces",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.0",
@@ -80,7 +85,7 @@
     "postcss": "^8.4.32",
     "prettier": "^3.1.1",
     "size-limit": "^8.2.6",
-    "tailwindcss": "^3.3.6",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.3.3",
     "vite": "^7.1.5",
     "vite-bundle-analyzer": "^0.7.0",
@@ -98,7 +103,7 @@
     ]
   },
   "engines": {
-    "node": "^22.22.3 || ^24.15.0 || >=26.0.0",
+    "node": "^24.15.0",
     "npm": ">=8.19.0"
   },
   "browserslist": [
@@ -106,5 +111,8 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "overrides": {
+    "braces": "$braces"
+  }
 }

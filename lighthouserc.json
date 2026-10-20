@@ -1,12 +1,11 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./dist",
       "numberOfRuns": 1,
       "settings": {
         "chromeFlags": [
           "--headless=new",
-          "--no-sandbox", 
+          "--no-sandbox",
           "--disable-dev-shm-usage",
           "--disable-gpu",
           "--disable-features=TranslateUI",
@@ -19,7 +18,10 @@
         ],
         "maxWaitForFcp": 60000,
         "maxWaitForLoad": 60000
-      }
+      },
+      "url": [
+        "http://127.0.0.1:4173/SprintSolve/"
+      ]
     },
     "assert": {
       "assertMatrix": [
@@ -27,7 +29,7 @@
           "matchingUrlPattern": ".*",
           "assertions": {
             "first-contentful-paint": "off",
-            "largest-contentful-paint": "off", 
+            "largest-contentful-paint": "off",
             "cumulative-layout-shift": "off",
             "total-blocking-time": "off",
             "speed-index": "off",
@@ -37,7 +39,8 @@
       ]
     },
     "upload": {
-      "target": "temporary-public-storage"
+      "target": "filesystem",
+      "outputDir": "./lighthouse-reports"
     }
   }
 }

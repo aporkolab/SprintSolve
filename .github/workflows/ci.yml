@@ -42,11 +42,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Run ESLint
         run: npm run lint
-        continue-on-error: true
 
       - name: Run Prettier check
         run: npm run format:check
@@ -55,7 +54,7 @@ jobs:
         run: npm run type-check
 
       - name: Check for security vulnerabilities
-        run: npm audit --audit-level=moderate
+        run: npm run test:dependency-guards && npm audit --audit-level=moderate
 
   # Unit and Integration Tests
   test:
@@ -63,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['22', '24']
+        node-version: ['24']
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -75,7 +74,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Run unit tests
         run: npm run test -- --coverage
@@ -121,7 +120,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -131,7 +130,6 @@ jobs:
 
       - name: Run E2E tests
         run: npm run test:e2e
-        continue-on-error: true
 
       - name: Upload E2E test results
         uses: actions/upload-artifact@v4
@@ -156,7 +154,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build application
         run: npm run build
@@ -165,22 +163,17 @@ jobs:
         run: npm run preview &
         
       - name: Wait for server
-        run: npx wait-on http://localhost:4173
+        run: npx wait-on --timeout 60000 http://127.0.0.1:4173/SprintSolve/
 
-      - name: Run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.12.x
-          lhci autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-        continue-on-error: true
+      - name: Run Lighthouse
+        run: npm run lighthouse
 
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: lighthouse-reports
-          path: .lighthouseci/
+          path: lighthouse-report.json
           retention-days: 30
 
   # Build and Bundle Analysis
@@ -198,7 +191,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build application
         run: npm run build
@@ -214,10 +207,7 @@ jobs:
           retention-days: 30
 
       - name: Bundle size check
-        if: github.event_name == 'pull_request'
-        uses: andresz1/size-limit-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run size
 
   # Security Scanning
   security:
@@ -300,7 +290,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build for production
         run: npm run build
@@ -363,7 +353,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Create Release
         id: release
@@ -472,7 +462,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build application
         run: npm run build

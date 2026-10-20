@@ -16,12 +16,7 @@ export interface Achievement {
   readonly unlocked: boolean;
   readonly unlockedAt?: number;
   readonly category:
-    | 'score'
-    | 'accuracy'
-    | 'speed'
-    | 'persistence'
-    | 'exploration'
-    | 'special';
+    'score' | 'accuracy' | 'speed' | 'persistence' | 'exploration' | 'special';
 }
 
 interface AchievementDefinition {

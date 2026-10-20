@@ -7,7 +7,7 @@ import {
   clearObstacles,
 } from './obstacles';
 import { questionState, triviaService } from './questions';
-import { useGameStore, useGameActions } from './stores/gameStore';
+import { useGameStore } from './stores/gameStore';
 import {
   audioManager,
   playJumpSound,
@@ -52,7 +52,8 @@ class GameEngine {
 
   // Game state from Zustand store
   private gameStore = useGameStore.getState();
-  private gameActions = useGameActions();
+  // The canvas engine runs outside React; actions use the vanilla store API.
+  private gameActions = useGameStore.getState();
 
   constructor(canvasId: string) {
     const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
@@ -61,6 +62,7 @@ class GameEngine {
     }
 
     this.canvas = canvas;
+    this.canvas.dataset.gameState = 'loading';
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       throw new Error('Failed to get 2D context');
@@ -76,6 +78,7 @@ class GameEngine {
     // Subscribe to store changes
     useGameStore.subscribe(state => {
       this.gameStore = state;
+      this.canvas.dataset.gameState = state.gameState;
     });
   }
 
@@ -89,8 +92,8 @@ class GameEngine {
       // Load assets
       this.assets = await loadGameAssets();
 
-      // Initialize audio system
-      await audioManager.preloadAll();
+      // Optional remote audio must not block the game when unavailable.
+      void audioManager.preloadAll();
 
       // Initialize internationalization
       await i18nService.initialize();
@@ -113,6 +116,7 @@ class GameEngine {
       console.log('Game engine initialized successfully');
     } catch (error) {
       console.error('Failed to initialize game engine:', error);
+      this.canvas.dataset.gameState = 'error';
       this.showErrorScreen(
         'Failed to load game assets. Please refresh and try again.',
       );

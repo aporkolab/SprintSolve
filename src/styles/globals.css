@@ -1,10 +1,399 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import 'tailwindcss';
+@config '../../tailwind.config.ts';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #ff6a00;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+
+  --color-secondary-50: #fefce8;
+  --color-secondary-100: #fef9c3;
+  --color-secondary-200: #fef08a;
+  --color-secondary-300: #fde047;
+  --color-secondary-400: #facc15;
+  --color-secondary-500: #ffe600;
+  --color-secondary-600: #ca8a04;
+  --color-secondary-700: #a16207;
+  --color-secondary-800: #854d0e;
+  --color-secondary-900: #713f12;
+
+  --color-game-background: #ffe600;
+  --color-game-border: #ff0000;
+  --color-game-wall: #ff4500;
+  --color-game-correct: #10b981;
+  --color-game-incorrect: #ef4444;
+  --color-game-neutral: #6b7280;
+  --color-game-text: #1f2937;
+
+  --color-dark-500: #718096;
+  --color-dark-600: #4a5568;
+  --color-dark-700: #2d3748;
+  --color-dark-800: #1a202c;
+  --color-dark-900: #0f1419;
+
+  --font-game: 'Press Start 2P', monospace;
+  --font-ui: Inter, system-ui, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 2.5rem;
+  --text-game-xs: 8px;
+  --text-game-xs--line-height: 12px;
+  --text-game-sm: 10px;
+  --text-game-sm--line-height: 14px;
+  --text-game-base: 12px;
+  --text-game-base--line-height: 16px;
+  --text-game-lg: 14px;
+  --text-game-lg--line-height: 18px;
+  --text-game-xl: 16px;
+  --text-game-xl--line-height: 20px;
+  --text-game-2xl: 20px;
+  --text-game-2xl--line-height: 24px;
+  --text-game-3xl: 24px;
+  --text-game-3xl--line-height: 28px;
+  --text-game-4xl: 32px;
+  --text-game-4xl--line-height: 36px;
+
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.3s ease-out;
+  --animate-slide-down: slideDown 0.3s ease-out;
+  --animate-bounce-in: bounceIn 0.6s ease-out;
+  --animate-shake: shake 0.5s ease-in-out;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+
+  --backdrop-blur-xs: 2px;
+
+  --breakpoint-xs: 475px;
+  --breakpoint-3xl: 1920px;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes bounceIn {
+    0% {
+      transform: scale(0.3);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-10px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(10px);
+    }
+  }
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 5px #ff6a00;
+    }
+    100% {
+      box-shadow:
+        0 0 20px #ff6a00,
+        0 0 30px #ff6a00;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility btn {
+  /* Button variants */
+  @apply inline-flex items-center justify-center px-4 py-2 font-medium text-sm rounded-md;
+  @apply transition-all duration-200 ease-in-out;
+  @apply focus:outline-hidden focus:ring-2 focus:ring-offset-2;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+@utility btn-primary {
+  @apply btn bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500;
+  @apply active:bg-primary-700;
+  @media (prefers-contrast: high) {
+    @apply border-2 border-black;
+  }
+}
+
+@utility btn-secondary {
+  @apply btn bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+  @apply dark:bg-dark-700 dark:text-gray-100 dark:hover:bg-dark-600;
+}
+
+@utility btn-game {
+  @apply font-game text-game-base px-6 py-3 bg-primary-500 text-white;
+  @apply border-2 border-red-600 hover:bg-primary-600 active:bg-primary-700;
+  @apply transform hover:scale-105 active:scale-95 transition-all duration-150;
+  @apply shadow-lg hover:shadow-xl;
+}
+
+@utility btn-icon {
+  @apply p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-700;
+  @apply transition-colors duration-200;
+}
+
+@utility card {
+  /* Card styles */
+  @apply bg-white dark:bg-dark-800 rounded-lg shadow-md;
+  @apply border border-gray-200 dark:border-dark-700;
+  @media (prefers-contrast: high) {
+    @apply border-2 border-gray-800;
+  }
+}
+
+@utility card-game {
+  @apply glass-effect rounded-lg p-6;
+  @apply border-2 border-primary-500/30;
+  @apply backdrop-blur-md;
+}
+
+@utility input {
+  /* Input styles */
+  @apply block w-full px-3 py-2 border border-gray-300 rounded-md;
+  @apply placeholder-gray-400 focus:outline-hidden focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  @apply dark:bg-dark-800 dark:border-dark-600 dark:text-gray-100;
+  @apply transition-colors duration-200;
+}
+
+@utility modal-overlay {
+  /* Modal styles */
+  @apply fixed inset-0 z-50 flex items-center justify-center;
+  @apply bg-black/50 backdrop-blur-sm;
+  @apply animate-fade-in;
+}
+
+@utility modal-content {
+  @apply bg-white dark:bg-dark-800 rounded-lg shadow-xl;
+  @apply max-w-md w-full mx-4 p-6;
+  @apply animate-bounce-in;
+}
+
+@utility game-panel {
+  /* Game UI specific */
+  @apply absolute top-4 left-4 right-4;
+  @apply flex justify-between items-start;
+  @apply pointer-events-none;
+}
+
+@utility game-stats {
+  @apply glass-effect rounded-lg p-3;
+  @apply font-game text-game-sm text-white;
+  @apply pointer-events-auto;
+}
+
+@utility game-overlay {
+  @apply fixed inset-0 z-40;
+  @apply flex items-center justify-center;
+  @apply bg-black/75 backdrop-blur-md;
+}
+
+@utility game-menu {
+  @apply glass-effect rounded-lg p-8 max-w-md w-full mx-4;
+  @apply text-center animate-bounce-in;
+}
+
+@utility loading-spinner {
+  /* Loading states */
+  @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500;
+}
+
+@utility loading-dots {
+  @apply flex space-x-1;
+}
+
+@utility loading-dot {
+  @apply h-2 w-2 bg-primary-500 rounded-full animate-pulse;
+}
+
+@utility toast {
+  /* Toast notifications */
+  @apply fixed bottom-4 right-4 z-50;
+  @apply bg-white dark:bg-dark-800 rounded-lg shadow-lg;
+  @apply border-l-4 p-4 max-w-sm;
+  @apply animate-slide-up;
+}
+
+@utility toast-success {
+  @apply toast border-l-green-500;
+}
+
+@utility toast-error {
+  @apply toast border-l-red-500;
+}
+
+@utility toast-warning {
+  @apply toast border-l-yellow-500;
+}
+
+@utility toast-info {
+  @apply toast border-l-blue-500;
+}
+
+@utility progress-bar {
+  /* Progress bars */
+  @apply w-full bg-gray-200 dark:bg-dark-700 rounded-full h-2;
+}
+
+@utility progress-fill {
+  @apply bg-primary-500 h-2 rounded-full transition-all duration-300 ease-out;
+}
+
+@utility sr-only {
+  /* Accessibility helpers */
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+
+  /* High contrast mode */
+
+  /* Reduced motion */
+}
+
+/* Utility layer */
+
+@utility text-balance {
+  /* Text utilities */
+  text-wrap: balance;
+}
+
+@utility content-grid {
+  /* Layout utilities */
+  display: grid;
+  grid-template-columns: 1fr min(65ch, 100%) 1fr;
+
+  & > * {
+    grid-column: 2;
+  }
+}
+
+@utility full-width {
+  grid-column: 1 / -1;
+}
+
+@utility pixelated {
+  /* Game specific utilities */
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+@utility text-outline {
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+@utility text-outline-white {
+  text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+}
+
+@utility gpu-accelerated {
+  /* Performance utilities */
+  will-change: transform;
+  transform: translateZ(0);
+
+  /* Container queries (when supported) */
+}
+
+.container-md\:text-lg {
+  @container (min-width: 768px) {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
 
 /* Base styles */
 @layer base {
@@ -72,7 +461,7 @@
 
   /* Focus styles */
   *:focus {
-    @apply outline-none ring-2 ring-primary-500 ring-opacity-50;
+    @apply outline-hidden ring-2 ring-primary-500/50;
   }
 
   /* Selection styles */
@@ -87,224 +476,11 @@
 
 /* Component layer */
 @layer components {
-  /* Button variants */
-  .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 font-medium text-sm rounded-md;
-    @apply transition-all duration-200 ease-in-out;
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
-    @apply disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
-  .btn-primary {
-    @apply btn bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500;
-    @apply active:bg-primary-700;
-  }
-
-  .btn-secondary {
-    @apply btn bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
-    @apply dark:bg-dark-700 dark:text-gray-100 dark:hover:bg-dark-600;
-  }
-
-  .btn-game {
-    @apply font-game text-game-base px-6 py-3 bg-primary-500 text-white;
-    @apply border-2 border-red-600 hover:bg-primary-600 active:bg-primary-700;
-    @apply transform hover:scale-105 active:scale-95 transition-all duration-150;
-    @apply shadow-lg hover:shadow-xl;
-  }
-
-  .btn-icon {
-    @apply p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-700;
-    @apply transition-colors duration-200;
-  }
-
-  /* Card styles */
-  .card {
-    @apply bg-white dark:bg-dark-800 rounded-lg shadow-md;
-    @apply border border-gray-200 dark:border-dark-700;
-  }
-
-  .card-game {
-    @apply glass-effect rounded-lg p-6;
-    @apply border-2 border-primary-500/30;
-    @apply backdrop-blur-md;
-  }
-
-  /* Input styles */
-  .input {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-md;
-    @apply placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
-    @apply dark:bg-dark-800 dark:border-dark-600 dark:text-gray-100;
-    @apply transition-colors duration-200;
-  }
-
-  /* Modal styles */
-  .modal-overlay {
-    @apply fixed inset-0 z-50 flex items-center justify-center;
-    @apply bg-black bg-opacity-50 backdrop-blur-sm;
-    @apply animate-fade-in;
-  }
-
-  .modal-content {
-    @apply bg-white dark:bg-dark-800 rounded-lg shadow-xl;
-    @apply max-w-md w-full mx-4 p-6;
-    @apply animate-bounce-in;
-  }
-
-  /* Game UI specific */
-  .game-panel {
-    @apply absolute top-4 left-4 right-4;
-    @apply flex justify-between items-start;
-    @apply pointer-events-none;
-  }
-
-  .game-stats {
-    @apply glass-effect rounded-lg p-3;
-    @apply font-game text-game-sm text-white;
-    @apply pointer-events-auto;
-  }
-
-  .game-overlay {
-    @apply fixed inset-0 z-40;
-    @apply flex items-center justify-center;
-    @apply bg-black bg-opacity-75 backdrop-blur-md;
-  }
-
-  .game-menu {
-    @apply glass-effect rounded-lg p-8 max-w-md w-full mx-4;
-    @apply text-center animate-bounce-in;
-  }
-
-  /* Loading states */
-  .loading-spinner {
-    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500;
-  }
-
-  .loading-dots {
-    @apply flex space-x-1;
-  }
-
-  .loading-dot {
-    @apply h-2 w-2 bg-primary-500 rounded-full animate-pulse;
-  }
-
-  /* Toast notifications */
-  .toast {
-    @apply fixed bottom-4 right-4 z-50;
-    @apply bg-white dark:bg-dark-800 rounded-lg shadow-lg;
-    @apply border-l-4 p-4 max-w-sm;
-    @apply animate-slide-up;
-  }
-
-  .toast-success {
-    @apply toast border-l-green-500;
-  }
-
-  .toast-error {
-    @apply toast border-l-red-500;
-  }
-
-  .toast-warning {
-    @apply toast border-l-yellow-500;
-  }
-
-  .toast-info {
-    @apply toast border-l-blue-500;
-  }
-
-  /* Progress bars */
-  .progress-bar {
-    @apply w-full bg-gray-200 dark:bg-dark-700 rounded-full h-2;
-  }
-
-  .progress-fill {
-    @apply bg-primary-500 h-2 rounded-full transition-all duration-300 ease-out;
-  }
-
-  /* Accessibility helpers */
-  .sr-only {
-    @apply absolute w-px h-px p-0 -m-px overflow-hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  /* High contrast mode */
-  @media (prefers-contrast: high) {
-    .btn-primary {
-      @apply border-2 border-black;
-    }
-
-    .card {
-      @apply border-2 border-gray-800;
-    }
-  }
-
-  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
-    }
-  }
-}
-
-/* Utility layer */
-@layer utilities {
-  /* Text utilities */
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Layout utilities */
-  .content-grid {
-    display: grid;
-    grid-template-columns: 1fr min(65ch, 100%) 1fr;
-  }
-
-  .content-grid > * {
-    grid-column: 2;
-  }
-
-  .full-width {
-    grid-column: 1 / -1;
-  }
-
-  /* Game specific utilities */
-  .pixelated {
-    image-rendering: -moz-crisp-edges;
-    image-rendering: -webkit-crisp-edges;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-  }
-
-  .text-outline {
-    text-shadow:
-      -1px -1px 0 #000,
-      1px -1px 0 #000,
-      -1px 1px 0 #000,
-      1px 1px 0 #000;
-  }
-
-  .text-outline-white {
-    text-shadow:
-      -1px -1px 0 #fff,
-      1px -1px 0 #fff,
-      -1px 1px 0 #fff,
-      1px 1px 0 #fff;
-  }
-
-  /* Performance utilities */
-  .gpu-accelerated {
-    will-change: transform;
-    transform: translateZ(0);
-  }
-
-  /* Container queries (when supported) */
-  @container (min-width: 768px) {
-    .container-md\:text-lg {
-      font-size: 1.125rem;
-      line-height: 1.75rem;
     }
   }
 }

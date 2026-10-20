@@ -68,7 +68,7 @@ export class AudioManagerImpl implements AudioManager {
     try {
       // Set global Howler settings
       Howler.volume(this.masterVolume);
-      (Howler as any).html5PoolSize(10);
+      Howler.html5PoolSize = 10;
 
       // Preload essential sounds
       await this.preloadEssentialSounds();
@@ -384,8 +384,9 @@ export class SpatialAudioManager {
 
   private async initializeAudioContext(): Promise<void> {
     try {
-      this.audioContext = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
+      this.audioContext = new (
+        window.AudioContext || (window as any).webkitAudioContext
+      )();
       this.gainNode = this.audioContext.createGain();
       this.compressor = this.audioContext.createDynamicsCompressor();
 
