@@ -42,7 +42,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Run ESLint
         run: npm run lint
@@ -55,7 +55,7 @@ jobs:
         run: npm run type-check
 
       - name: Check for security vulnerabilities
-        run: npm audit --audit-level=moderate
+        run: npm run test:dependency-guards && npm audit --audit-level=moderate
 
   # Unit and Integration Tests
   test:
@@ -75,7 +75,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Run unit tests
         run: npm run test -- --coverage
@@ -121,7 +121,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -156,7 +156,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build application
         run: npm run build
@@ -198,7 +198,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build application
         run: npm run build
@@ -214,10 +214,7 @@ jobs:
           retention-days: 30
 
       - name: Bundle size check
-        if: github.event_name == 'pull_request'
-        uses: andresz1/size-limit-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run size
 
   # Security Scanning
   security:
@@ -300,7 +297,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build for production
         run: npm run build
@@ -363,7 +360,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Create Release
         id: release
@@ -472,7 +469,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm i
+        run: npm ci
 
       - name: Build application
         run: npm run build
