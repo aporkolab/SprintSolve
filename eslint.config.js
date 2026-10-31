@@ -47,4 +47,16 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    // The core rule does not understand type-only declarations (e.g. global
+    // interface augmentation), so TypeScript files use the typed equivalent.
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+    },
+  },
 );

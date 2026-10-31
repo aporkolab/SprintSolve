@@ -557,6 +557,5 @@ export const analyticsService = new AnalyticsService();
 
 // Global declarations
 declare global {
-  // eslint-disable-next-line no-unused-vars
   function gtag(_command: string, ..._args: any[]): void;
 }
