@@ -618,7 +618,7 @@ class GameEngine {
     drawParticles(this.ctx);
 
     // Render performance metrics in debug mode
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       this.renderDebugInfo();
     }
   }

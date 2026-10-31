@@ -284,8 +284,8 @@ class AnalyticsService {
 
   private loadConfig(): AnalyticsConfig {
     return {
-      gtag: process.env.VITE_GTAG_ID,
-      debugMode: process.env.NODE_ENV === 'development',
+      gtag: import.meta.env.VITE_GTAG_ID,
+      debugMode: import.meta.env.DEV,
       userConsent: localStorage.getItem('analytics_consent') === 'true',
       sessionTimeout: 30 * 60 * 1000, // 30 minutes
     };

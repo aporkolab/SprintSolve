@@ -199,7 +199,7 @@ class I18nService {
   public async initialize(config: I18nConfig = {}): Promise<void> {
     const {
       fallbackLanguage = 'en',
-      debug = process.env.NODE_ENV === 'development',
+      debug = import.meta.env.DEV,
       loadPath = '/locales/{{lng}}/{{ns}}.json',
     } = config;
 
