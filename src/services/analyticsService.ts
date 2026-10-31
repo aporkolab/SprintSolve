@@ -284,8 +284,8 @@ class AnalyticsService {
 
   private loadConfig(): AnalyticsConfig {
     return {
-      gtag: process.env.VITE_GTAG_ID,
-      debugMode: process.env.NODE_ENV === 'development',
+      gtag: import.meta.env.VITE_GTAG_ID,
+      debugMode: import.meta.env.DEV,
       userConsent: localStorage.getItem('analytics_consent') === 'true',
       sessionTimeout: 30 * 60 * 1000, // 30 minutes
     };
@@ -557,6 +557,5 @@ export const analyticsService = new AnalyticsService();
 
 // Global declarations
 declare global {
-  // eslint-disable-next-line no-unused-vars
   function gtag(_command: string, ..._args: any[]): void;
 }

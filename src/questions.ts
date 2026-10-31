@@ -112,6 +112,7 @@ export class TriviaService {
       console.error(`Failed to fetch from ${url}:`, error);
       throw new Error(
         `Failed to fetch data: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        { cause: error },
       );
     }
   }

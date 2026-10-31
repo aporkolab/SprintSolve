@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
-import { create } from 'zustand';
-import { subscribeWithSelector } from 'zustand/middleware';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { createStore } from 'zustand/vanilla';
+import {
+  subscribeWithSelector,
+  persist,
+  createJSONStorage,
+} from 'zustand/middleware';
 import type { GameState, GameStateStore } from '@/types';
 
 interface GameStoreState extends GameStateStore {
@@ -67,7 +70,9 @@ const defaultStatistics: GameStoreState['statistics'] = {
   lastPlayed: 0,
 };
 
-export const useGameStore = create<GameStoreState>()(
+// The game runs on a plain canvas without React, so it uses the vanilla store
+// API (getState/setState/subscribe) instead of React hooks.
+export const gameStore = createStore<GameStoreState>()(
   subscribeWithSelector(
     persist(
       (set, get) => ({
@@ -252,40 +257,8 @@ export const useGameStore = create<GameStoreState>()(
   ),
 );
 
-// Selectors for better performance
-export const useGameState = () => useGameStore(state => state.gameState);
-export const useScore = () => useGameStore(state => state.score);
-export const useShield = () => useGameStore(state => state.hasShield);
-export const useGameSpeed = () => useGameStore(state => state.gameSpeed);
-export const useSelectedCategory = () =>
-  useGameStore(state => state.selectedCategoryId);
-export const useLives = () => useGameStore(state => state.lives);
-export const useLevel = () => useGameStore(state => state.level);
-export const useExperience = () => useGameStore(state => state.experience);
-export const useAchievements = () => useGameStore(state => state.achievements);
-export const useSettings = () => useGameStore(state => state.settings);
-export const useStatistics = () => useGameStore(state => state.statistics);
-
-// Action selectors
-export const useGameActions = () =>
-  useGameStore(state => ({
-    setGameState: state.setGameState,
-    incrementScore: state.incrementScore,
-    resetScore: state.resetScore,
-    setShield: state.setShield,
-    setGameSpeed: state.setGameSpeed,
-    setSelectedCategory: state.setSelectedCategory,
-    resetGame: state.resetGame,
-    setLives: state.setLives,
-    decrementLives: state.decrementLives,
-    addExperience: state.addExperience,
-    unlockAchievement: state.unlockAchievement,
-    updateSettings: state.updateSettings,
-    updateStatistics: state.updateStatistics,
-  }));
-
 // Subscribe to store changes for analytics
-useGameStore.subscribe(
+gameStore.subscribe(
   state => state.statistics,
   (statistics, previousStatistics) => {
     // Analytics tracking
@@ -302,7 +275,7 @@ useGameStore.subscribe(
 );
 
 // Subscribe to achievements for notifications
-useGameStore.subscribe(
+gameStore.subscribe(
   state => state.achievements,
   (achievements, previousAchievements) => {
     const newAchievements = achievements.filter(

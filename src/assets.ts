@@ -47,6 +47,7 @@ export async function loadGameAssets(): Promise<GameAssets> {
     console.error('Failed to load game assets:', error);
     throw new Error(
       'Failed to load game assets. Please refresh and try again.',
+      { cause: error },
     );
   }
 }

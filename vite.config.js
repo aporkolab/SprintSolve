@@ -21,14 +21,14 @@ export default defineConfig({
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
           },
           {
             src: 'pwa-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
+            type: 'image/png',
+          },
+        ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,gif,mp3}'],
@@ -61,35 +61,37 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@/types': path.resolve(__dirname, './src/types'),
-      '@/utils': path.resolve(__dirname, './src/utils'),
-      '@/components': path.resolve(__dirname, './src/components'),
-      '@/services': path.resolve(__dirname, './src/services'),
-      '@/stores': path.resolve(__dirname, './src/stores'),
+      '@': path.resolve(import.meta.dirname, './src'),
+      '@/types': path.resolve(import.meta.dirname, './src/types'),
+      '@/utils': path.resolve(import.meta.dirname, './src/utils'),
+      '@/components': path.resolve(import.meta.dirname, './src/components'),
+      '@/services': path.resolve(import.meta.dirname, './src/services'),
+      '@/stores': path.resolve(import.meta.dirname, './src/stores'),
     },
   },
   build: {
     target: 'es2022',
-    minify: 'esbuild',
     sourcemap: true,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          vendor: ['zustand', 'howler', 'lodash-es'],
-          canvas: ['canvas-confetti'],
+        codeSplitting: {
+          groups: [
+            {
+              name: 'vendor',
+              test: /[\\/]node_modules[\\/](zustand|howler)[\\/]/,
+            },
+          ],
         },
       },
     },
     chunkSizeWarningLimit: 1000,
   },
   optimizeDeps: {
-    include: ['zustand', 'howler', 'lodash-es', 'canvas-confetti'],
+    include: ['zustand', 'howler'],
   },
   server: {
     port: 5173,
     open: true,
-    cors: true,
   },
   preview: {
     port: 4173,
