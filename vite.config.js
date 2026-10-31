@@ -21,14 +21,14 @@ export default defineConfig({
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
           },
           {
             src: 'pwa-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
+            type: 'image/png',
+          },
+        ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,gif,mp3}'],
@@ -76,15 +76,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['zustand', 'howler', 'lodash-es'],
-          canvas: ['canvas-confetti'],
+          vendor: ['zustand', 'howler'],
         },
       },
     },
     chunkSizeWarningLimit: 1000,
   },
   optimizeDeps: {
-    include: ['zustand', 'howler', 'lodash-es', 'canvas-confetti'],
+    include: ['zustand', 'howler'],
   },
   server: {
     port: 5173,
