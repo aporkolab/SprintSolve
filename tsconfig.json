@@ -25,14 +25,13 @@
     "noUncheckedIndexedAccess": true,
 
     /* Path mapping */
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/types/*": ["src/types/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/components/*": ["src/components/*"],
-      "@/services/*": ["src/services/*"],
-      "@/stores/*": ["src/stores/*"]
+      "@/*": ["./src/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/stores/*": ["./src/stores/*"]
     },
 
     /* Additional checks */
@@ -45,7 +44,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx", 
+    "src/**/*.tsx",
     "src/**/*.js",
     "src/**/*.jsx",
     "**/*.d.ts"
