@@ -7,7 +7,7 @@ import {
   clearObstacles,
 } from './obstacles';
 import { questionState, triviaService } from './questions';
-import { useGameStore } from './stores/gameStore';
+import { gameStore } from './stores/gameStore';
 import {
   audioManager,
   playJumpSound,
@@ -51,9 +51,8 @@ class GameEngine {
   };
 
   // Game state from Zustand store
-  private gameStore = useGameStore.getState();
-  // The canvas engine runs outside React; actions use the vanilla store API.
-  private gameActions = useGameStore.getState();
+  private gameStore = gameStore.getState();
+  private gameActions = gameStore.getState();
 
   constructor(canvasId: string) {
     const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
@@ -76,7 +75,7 @@ class GameEngine {
     this.showLoadingScreen();
 
     // Subscribe to store changes
-    useGameStore.subscribe(state => {
+    gameStore.subscribe(state => {
       this.gameStore = state;
       this.canvas.dataset.gameState = state.gameState;
     });
@@ -618,7 +617,7 @@ class GameEngine {
     drawParticles(this.ctx);
 
     // Render performance metrics in debug mode
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       this.renderDebugInfo();
     }
   }

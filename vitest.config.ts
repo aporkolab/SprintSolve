@@ -7,7 +7,10 @@ export default defineConfig({
     globals: true,
     // Fix crypto.getRandomValues issues
     pool: 'forks',
-    include: ['tests/unit/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', 'src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    include: [
+      'tests/unit/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+      'src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+    ],
     exclude: ['tests/e2e/**/*', '**/*.e2e.*'],
     setupFiles: ['./src/test/setup.ts'],
     coverage: {
@@ -34,12 +37,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@/types': path.resolve(__dirname, './src/types'),
-      '@/utils': path.resolve(__dirname, './src/utils'),
-      '@/components': path.resolve(__dirname, './src/components'),
-      '@/services': path.resolve(__dirname, './src/services'),
-      '@/stores': path.resolve(__dirname, './src/stores'),
+      '@': path.resolve(import.meta.dirname, './src'),
+      '@/types': path.resolve(import.meta.dirname, './src/types'),
+      '@/utils': path.resolve(import.meta.dirname, './src/utils'),
+      '@/components': path.resolve(import.meta.dirname, './src/components'),
+      '@/services': path.resolve(import.meta.dirname, './src/services'),
+      '@/stores': path.resolve(import.meta.dirname, './src/stores'),
     },
   },
 });
