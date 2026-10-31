@@ -1,4 +1,4 @@
-import { useGameStore } from '@/stores/gameStore';
+import { gameStore } from '@/stores/gameStore';
 /* eslint-disable no-console */
 import type { GameEvent } from '@/types';
 
@@ -428,7 +428,7 @@ export class AchievementSystem {
 
     // Track comeback achievements
     this.addEventListener('SCORE_UPDATED', event => {
-      // const gameStore = useGameStore.getState();
+      // const state = gameStore.getState();
       if ('score' in event && 'lives' in event) {
         if (event.lives === 1 && (event.score as number) >= 20) {
           this.progressData.comebackAchieved = true;
@@ -471,9 +471,9 @@ export class AchievementSystem {
    * Update and check all achievements
    */
   public updateAchievements(): Achievement[] {
-    const gameStore = useGameStore.getState();
-    const stats = gameStore.statistics;
-    const unlockedAchievements = gameStore.achievements;
+    const store = gameStore.getState();
+    const stats = store.statistics;
+    const unlockedAchievements = store.achievements;
     const newlyUnlocked: Achievement[] = [];
 
     for (const [id, definition] of this.achievements.entries()) {
@@ -501,7 +501,7 @@ export class AchievementSystem {
           };
 
           newlyUnlocked.push(achievement);
-          gameStore.unlockAchievement(id);
+          store.unlockAchievement(id);
         }
       }
     }
@@ -513,9 +513,9 @@ export class AchievementSystem {
    * Get all achievements with current progress
    */
   public getAllAchievements(): Achievement[] {
-    const gameStore = useGameStore.getState();
-    const stats = gameStore.statistics;
-    const unlockedAchievements = gameStore.achievements;
+    const store = gameStore.getState();
+    const stats = store.statistics;
+    const unlockedAchievements = store.achievements;
     const achievements: Achievement[] = [];
 
     for (const [id, definition] of this.achievements.entries()) {
