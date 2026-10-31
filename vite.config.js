@@ -61,22 +61,26 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@/types': path.resolve(__dirname, './src/types'),
-      '@/utils': path.resolve(__dirname, './src/utils'),
-      '@/components': path.resolve(__dirname, './src/components'),
-      '@/services': path.resolve(__dirname, './src/services'),
-      '@/stores': path.resolve(__dirname, './src/stores'),
+      '@': path.resolve(import.meta.dirname, './src'),
+      '@/types': path.resolve(import.meta.dirname, './src/types'),
+      '@/utils': path.resolve(import.meta.dirname, './src/utils'),
+      '@/components': path.resolve(import.meta.dirname, './src/components'),
+      '@/services': path.resolve(import.meta.dirname, './src/services'),
+      '@/stores': path.resolve(import.meta.dirname, './src/stores'),
     },
   },
   build: {
     target: 'es2022',
-    minify: 'esbuild',
     sourcemap: true,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          vendor: ['zustand', 'howler'],
+        codeSplitting: {
+          groups: [
+            {
+              name: 'vendor',
+              test: /[\\/]node_modules[\\/](zustand|howler)[\\/]/,
+            },
+          ],
         },
       },
     },
@@ -88,7 +92,6 @@ export default defineConfig({
   server: {
     port: 5173,
     open: true,
-    cors: true,
   },
   preview: {
     port: 4173,
