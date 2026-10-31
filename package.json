@@ -99,6 +99,8 @@
     "not ie 11"
   ],
   "overrides": {
-    "braces": "$braces"
+    "braces": "$braces",
+    "minimatch": "^11.0.3",
+    "glob": "^14.0.3"
   }
 }
